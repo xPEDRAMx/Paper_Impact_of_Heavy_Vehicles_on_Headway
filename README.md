@@ -7,37 +7,13 @@
 
 ---
 
-Companion code for [*Transportation Research Record* **2679**(7): 222–235, 2025](https://journals.sagepub.com/doi/abs/10.1177/03611981251324198). **DOI:** [10.1177/03611981251324198](https://doi.org/10.1177/03611981251324198).
-
 ## Abstract
 
 Headway between vehicles affects safety, level of service, driver behavior, and capacity. This study analyzes **time headways** when **heavy vehicles** are present in a **naturalistic urban expressway** setting. Three leader–follower combinations are examined: **car–car (C–C)**, **car–heavy vehicle (C–HV)**, and **heavy vehicle–car (HV–C)**. **High-resolution trajectories** are derived from videos on **eastbound I-395 in Washington, DC**, covering **three through lanes plus one merging lane**. Headways are analyzed **by lane**. The study finds statistically **different mean headways** across C–C, C–HV, and HV–C; **lognormal** distributions fit well for all three types in many cases; under **severe congestion in the merging lane**, **gamma** is a better fit for **C–C**. The results motivate **lane- and vehicle-pair-specific** treatment of headways in **microscopic simulation**.
 
-## Keywords
+## Study summary
 
-Traffic operations · Microscopic traffic models · Headway distribution · Heavy vehicles · Driver behavior
-
-## Authors
-
-Pedram Beigi<sup>1</sup> (corresponding author: [beigi@gwu.edu](mailto:beigi@gwu.edu)), Samer Hamdar<sup>1</sup>, Alireza Talebpour<sup>2</sup>, Hani Mahmassani<sup>3</sup>
-
-<sup>1</sup>George Washington University, Washington, DC · <sup>2</sup>University of Illinois Urbana-Champaign · <sup>3</sup>Northwestern University Transportation Center, Evanston, IL
-
-## Study site and data
-
-Data come from **Third Generation Simulation (TGSIM)** trajectory extraction on **I-395** (eastbound). Vehicles are grouped as **passenger cars (including SUVs and pickups)** versus **heavy vehicles (trucks and buses)**; **HV–HV** pairs are rare and are set aside as in the paper. The manuscript uses **Gaussian mixture models (GMMs)** on **flow–density** observations to classify traffic states so that subsequent headway analysis can focus on **congested** conditions. **Note:** The TGSIM build used for the publication may **differ** from versions that are or will be **publicly** released.
-
-## Methodology (and mapping to this repo)
-
-- **Time headway:** difference between follower and leader passage times at cross-sections; statistics and distributions by **lane** and **vehicle-pair type** (detailed statistical tests, including Welch’s *t*-tests on means, appear in the paper).
-- **`pedram4.R` / `mergeplots.R`:** fit **Gamma**, **lognormal**, **Weibull**, and **inverse Gaussian** laws; **CDF** overlays; **K–S distances** and **AIC/BIC** (goodness-of-fit procedures as in the paper’s Methodology section).
-- **`Flow-Density.ipynb`:** compute **lane-level flow, density, and mean speed** in time bins from indexed trajectory CSVs—aligned with constructing **fundamental-diagram-style** aggregates (see flow–density clustering in the paper).
-- **`OLS - MLE.ipynb`:** **OLS** and **maximum likelihood** fits used in calibrating **parameter surfaces** relating distribution parameters to **flow rate**, **heavy-vehicle percentage**, and **lane index** (Table 4 in the article).
-
-## Key findings
-
-- Mean headways (**across lanes**, congested regime in the manuscript) are roughly **2.41 s (C–C)**, **2.57 s (C–HV)**, and **3.55 s (HV–C)**—drivers maintain **larger gaps** when interacting with heavy vehicles as leader or follower.
-- **Lane position** matters, especially near the **merge lane** where **gamma** better describes **C–C** under strong congestion.
+The analysis uses **Third Generation Simulation (TGSIM)** <a href="https://data.transportation.gov/Automobiles/Third-Generation-Simulation-Data-TGSIM-I-395-Traje/97n2-kuqi/about_data"><img alt="Data — TGSIM I-395" src="https://img.shields.io/static/v1?label=Data&message=TGSIM%20I-395&color=blue&style=flat-square" style="vertical-align: middle;"></a> <a href="https://journals.sagepub.com/doi/10.1177/03611981241257257"><img alt="Paper — TGSIM TRR methods" src="https://img.shields.io/static/v1?label=Paper&message=TGSIM%20TRR&color=purple&style=flat-square" style="vertical-align: middle;"></a> trajectories on **eastbound I-395** (Washington, DC), separating **passenger cars** from **heavy vehicles** and studying **C–C**, **C–HV**, and **HV–C** time headways by lane (**HV–HV** is rare and omitted as in the paper). **Flow–density** observations are clustered with **Gaussian mixture models** so headway work focuses on **congested** conditions; **time headway** is measured at cross-sections, with **`pedram4.R`** / **`mergeplots.R`** fitting **gamma**, **lognormal**, **Weibull**, and **inverse Gaussian** distributions (CDFs, **K–S**, **AIC/BIC**), **`Flow-Density.ipynb`** building lane-level **flow, density, and speed** time series, and **`OLS - MLE.ipynb`** supporting **OLS/MLE** calibration of distribution parameters against **flow**, **HV share**, and **lane**. In the congested regime, mean headways are about **2.41 s**, **2.57 s**, and **3.55 s** for **C–C**, **C–HV**, and **HV–C**; **lognormal** fits are typical, while **gamma** fits **C–C** better in the **merging lane** under strong congestion. The TGSIM build used in the article may differ from publicly released data.
 
 ## Repository contents
 
